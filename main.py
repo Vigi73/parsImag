@@ -6,5 +6,6 @@ name_obj = input()
 
 p = Parser(name_obj, code)
 print(p.get_pages())
-print(p.get_resolution()[0])
+#print(p.get_resolution()[0])
+
 
