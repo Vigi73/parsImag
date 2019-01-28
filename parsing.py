@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as BS
 from urllib.parse import quote
 from tkinter import Tk
 import os
+from random import randrange as rnd
 
 base_url = 'https://www.nastol.com.ua/download'
 
@@ -31,16 +32,20 @@ def save_file(url, name):
             f.write(r.content)
 
 
+def get_pages(url, enc):
+    soup = BS(get_h(url, enc), 'lxml')
+    img_count = soup.find('span', {'class': 'nav-center'})
+    return img_count.text.split('.')[-1].strip()
+
+
 class Parser:
     def __init__(self, name, encode):
-        self.obj_name = name
-        self.url = f'http://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/page/1/'
-        self.encoding = encode
 
-    def get_pages(self):
-        soup = BS(get_h(self.url, self.encoding), 'lxml')
-        img_count = soup.find('span', {'class': 'nav-center'})
-        return img_count.text.split('.')[-1].strip()
+        self.obj_name = name
+        n_page = rnd(int(get_pages(f'https://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/',
+                                   encode)))
+        self.url = f'http://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/page/{n_page}/'
+        self.encoding = encode
 
     def get_resolution(self):
         t = Tk()

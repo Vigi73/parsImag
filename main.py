@@ -1,4 +1,5 @@
 from parsing import Parser
 
-for inp in input(':>').split():
-    Parser(inp, 'cp1251').get_url_image()
+
+for name in input(':>').split():
+	Parser(name, 'cp1251').get_url_image()
