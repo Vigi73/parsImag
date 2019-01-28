@@ -1,8 +1,22 @@
 import requests
 from bs4 import BeautifulSoup as BS
 from urllib.parse import quote
-
 from tkinter import Tk
+
+base_url = 'https://www.nastol.com.ua/download'
+
+
+def get_h(url, enc):
+    headers = {
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/71.0.3578.99 YaBrowser/19.1.0.2494 (beta) Yowser/2.5 Safari/537.36',
+        'login_username': 'doom',
+        'login_password': '123456'
+    }
+    session = requests.session()
+    r = session.post(url, headers=headers)
+    r.encoding = enc
+    return r.text
 
 
 class Parser:
@@ -41,5 +55,7 @@ class Parser:
         for div in divs:
             href.append(div.find('a', {'class': 'screen-link'})['href'])
         # Цикл получения ссылки на скачивание
+        #https: // www.nastol.com.ua/download/316645/1920x1080/
         for url in href:
-            print(url)
+            number_img = url.split('/')[-1].split('-')[0]
+            print(base_url + f'/{number_img}/{self.get_resolution()[0]}x{self.get_resolution()[1]}/')
