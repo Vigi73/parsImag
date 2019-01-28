@@ -18,7 +18,6 @@ class Parser:
             'login_username': 'doom',
             'login_password': '123456'
         }
-
         session = requests.session()
         r = session.post(self.url, headers=headers)
         r.encoding = self.encoding
@@ -38,6 +37,9 @@ class Parser:
         href = []
         soup = BS(self.get_html(), 'lxml')
         divs = soup.find_all('div', {'class': 'verh'})
+        #Цикл получения ссылок на странице
         for div in divs:
             href.append(div.find('a', {'class': 'screen-link'})['href'])
-        return href
+        # Цикл получения ссылки на скачивание
+        for url in href:
+            print(url)
