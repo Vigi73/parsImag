@@ -27,10 +27,17 @@ class Parser:
     def get_pages(self):
         soup = BS(self.get_html(), 'lxml')
         img_count = soup.find('span', {'class': 'nav-center'})
-
         return img_count.text.split('.')[-1].strip()
 
     def get_resolution(self):
         t = Tk()
-        SIZE = WIDTH, HEIGHT = t.winfo_screenwidth(), t.winfo_screenheight()
-        return SIZE, WIDTH, HEIGHT
+        size = t.winfo_screenwidth(), t.winfo_screenheight()
+        return size
+
+    def get_url_image(self):
+        href = []
+        soup = BS(self.get_html(), 'lxml')
+        divs = soup.find_all('div', {'class': 'verh'})
+        for div in divs:
+            href.append(div.find('a', {'class': 'screen-link'})['href'])
+        return href
