@@ -49,6 +49,7 @@ class Parser:
 
     def get_url_image(self):
         href = []
+
         soup = BS(self.get_html(), 'lxml')
         divs = soup.find_all('div', {'class': 'verh'})
         #Цикл получения ссылок на странице
@@ -58,4 +59,10 @@ class Parser:
         #https: // www.nastol.com.ua/download/316645/1920x1080/
         for url in href:
             number_img = url.split('/')[-1].split('-')[0]
-            print(base_url + f'/{number_img}/{self.get_resolution()[0]}x{self.get_resolution()[1]}/')
+            href_d = base_url + f'/{number_img}/{self.get_resolution()[0]}x{self.get_resolution()[1]}/'
+            soup3 = BS(get_h(href_d, self.encoding), 'lxml')
+            print(soup3.find('div', {'id': 'wrapper'}).find_all('a')[-2]['href'])
+
+
+
+
