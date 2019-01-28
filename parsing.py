@@ -31,13 +31,11 @@ def save_file(url, name):
             f.write(r.content)
 
 
-
 class Parser:
     def __init__(self, name, encode):
         self.obj_name = name
         self.url = f'http://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/page/1/'
         self.encoding = encode
-
 
     def get_pages(self):
         soup = BS(get_h(self.url, self.encoding), 'lxml')
@@ -53,11 +51,11 @@ class Parser:
         href = []
         soup = BS(get_h(self.url, self.encoding), 'lxml')
         divs = soup.find_all('div', {'class': 'verh'})
-        #Цикл получения ссылок на странице
+        #получения ссылок на странице
         for div in divs:
             href.append(div.find('a', {'class': 'screen-link'})['href'])
-        # Цикл получения ссылки на скачивание
-        #https: // www.nastol.com.ua/download/316645/1920x1080/
+        # получения ссылки на скачивание
+        # https: // www.nastol.com.ua/download/316645/1920x1080/
         for url in href:
             number_img = url.split('/')[-1].split('-')[0]
             href_d = base_url + f'/{number_img}/{self.get_resolution()[0]}x{self.get_resolution()[1]}/'
@@ -65,7 +63,3 @@ class Parser:
             url_d = soup3.find('div', {'id': 'wrapper'}).find_all('a')[-2]['href']
             save_file(url_d, f'img/{self.obj_name}' + f'_{number_img}.jpg')
             print(f'Файл: {self.obj_name}' + f'_{number_img} сохранен...')
-
-
-
-
