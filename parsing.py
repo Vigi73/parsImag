@@ -51,10 +51,10 @@ class Parser:
         href = []
         soup = BS(get_h(self.url, self.encoding), 'lxml')
         divs = soup.find_all('div', {'class': 'verh'})
-        #получения ссылок на странице
+        #получение ссылок на странице
         for div in divs:
             href.append(div.find('a', {'class': 'screen-link'})['href'])
-        # получения ссылки на скачивание
+        # получение ссылки на скачивание
         # https: // www.nastol.com.ua/download/316645/1920x1080/
         for url in href:
             number_img = url.split('/')[-1].split('-')[0]
