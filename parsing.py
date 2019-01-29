@@ -42,8 +42,12 @@ class Parser:
     def __init__(self, name, encode):
 
         self.obj_name = name
-        n_page = rnd(int(get_pages(f'https://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/',
-                                   encode)))
+
+        try:
+            n_page = rnd(int(get_pages(f'https://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/', encode)))
+        except:
+            n_page = rnd(int(get_pages(f'https://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/', encode).split()[-1]))
+
         self.url = f'http://www.nastol.com.ua/tags/{quote(self.obj_name, encoding=encode)}/page/{n_page}/'
         self.encoding = encode
 
@@ -53,6 +57,7 @@ class Parser:
         return size
 
     def get_url_image(self):
+
         href = []
         soup = BS(get_h(self.url, self.encoding), 'lxml')
         divs = soup.find_all('div', {'class': 'verh'})
