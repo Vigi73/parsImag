@@ -1,6 +1,5 @@
 from parsing import Parser
 
-
 #for name in input(':>').split():
 #	Parser(name, 'cp1251').get_url_image()
 
@@ -19,3 +18,4 @@ for obj in name:
 
     for _ in range(int(obj[-tmp:])):
         Parser(obj[:-tmp], 'cp1251').get_url_image()
+

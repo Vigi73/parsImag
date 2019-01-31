@@ -69,10 +69,10 @@ class Parser:
             href.append(div.find('a', {'class': 'screen-link'})['href'])
         # получение ссылки на скачивание
         # https: // www.nastol.com.ua/download/316645/1920x1080/
-        for url in href:
+        for i, url in enumerate(href, start=1):
             number_img = url.split('/')[-1].split('-')[0]
             href_d = base_url + f'/{number_img}/{self.get_resolution()[0]}x{self.get_resolution()[1]}/'
             soup3 = BS(get_h(href_d, self.encoding), 'lxml')
             url_d = soup3.find('div', {'id': 'wrapper'}).find_all('a')[-2]['href']
             save_file(url_d, f'img/{self.obj_name}' + f'_{number_img}.jpg')
-            print(f'Файл: {self.obj_name}' + f'_{number_img} сохранен...')
+            print(f'{i} - файл: {self.obj_name}' + f'_{number_img} сохранен...')
