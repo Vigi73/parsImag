@@ -8,9 +8,14 @@ from parsing import Parser
 # 	Parser('природа', 'cp1251').get_url_image()
 
 name = input(':>').split()
-n = 1
 for obj in name:
-    tmp = len(obj) - len([n for n in obj if n.isalpha()])
-    print(tmp)
+    tmp = []
+    for n in obj:
+        if n.isalpha():
+            tmp.append(n)
+        else:
+            break
+    tmp = len(obj) - len(tmp)
+
     for _ in range(int(obj[-tmp:])):
         Parser(obj[:-tmp], 'cp1251').get_url_image()
